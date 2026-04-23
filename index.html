@@ -3,133 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🎯 בדיקה ממוקדת</title>
+<title>🎯 נסיון חדש - איפוס סיסמה</title>
 <style>
 *{box-sizing:border-box}
-body{background:linear-gradient(180deg,#0a0805,#1a0f05);color:#fff;font-family:-apple-system,sans-serif;margin:0;padding:18px;direction:rtl;min-height:100vh}
-.box{max-width:500px;margin:0 auto}
+body{background:linear-gradient(180deg,#0a0805,#1a0f05);color:#fff;font-family:-apple-system,sans-serif;margin:0;padding:20px;min-height:100vh;direction:rtl}
+.box{max-width:520px;margin:0 auto}
 h1{color:#fbab20;font-size:22px;margin:0 0 6px;text-align:center}
-.sub{color:rgba(255,255,255,0.6);font-size:13px;margin-bottom:16px;text-align:center}
-.btn{display:block;width:100%;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;border:none;padding:16px;border-radius:12px;font-size:15px;font-weight:800;margin:10px 0;box-shadow:0 4px 16px rgba(249,115,22,0.35);font-family:inherit;cursor:pointer}
-.btn:disabled{opacity:0.5}
-.btn.green{background:linear-gradient(135deg,#10b981,#059669)}
-.btn.purple{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
-.result{background:rgba(0,0,0,0.4);border:1px solid rgba(124,58,237,0.3);border-radius:10px;padding:14px;margin-top:14px;font-size:12px;font-family:monospace;white-space:pre-wrap;word-break:break-all;direction:ltr;text-align:left;min-height:60px;color:#ddd6fe}
-.result.pass{border-color:#10b981;background:rgba(16,185,129,0.08);color:#6ee7b7}
-.result.fail{border-color:#ef4444;background:rgba(239,68,68,0.08);color:#fca5a5}
-.info-box{background:rgba(251,171,32,0.08);border:1px solid rgba(251,171,32,0.3);border-radius:10px;padding:12px;margin-bottom:14px;font-size:12.5px;color:#fcd34d;line-height:1.6}
+.sub{color:rgba(255,255,255,0.55);font-size:13px;margin-bottom:18px;text-align:center}
+.warn{background:linear-gradient(135deg,rgba(239,68,68,0.15),rgba(153,27,27,0.08));border:2px solid #ef4444;border-radius:12px;padding:14px;margin-bottom:16px;font-size:13.5px;line-height:1.65;color:#fca5a5}
+.warn b{color:#fecaca}
+.step{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 15px;margin-bottom:10px}
+.step-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:6px}
+.step-num{flex-shrink:0;width:28px;height:28px;line-height:28px;text-align:center;background:linear-gradient(135deg,#10b981,#059669);color:#fff;border-radius:50%;font-weight:800;font-size:13px}
+.step-ttl{font-weight:800;color:#6ee7b7;font-size:14px;flex:1;padding-top:4px}
+.step-body{font-size:13.5px;line-height:1.7;color:rgba(255,255,255,0.88);margin-right:38px}
+.step-body b{color:#fcd34d}
+.step-body code{background:rgba(124,58,237,0.2);color:#c4b5fd;padding:2px 8px;border-radius:5px;font-family:monospace;font-size:12px}
+.btn{display:block;background:linear-gradient(135deg,#10b981,#059669);color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:12px;font-size:15px;font-weight:800;margin:10px 0;box-shadow:0 4px 16px rgba(16,185,129,0.35)}
+.btn.orange{background:linear-gradient(135deg,#f97316,#ea580c);box-shadow:0 4px 16px rgba(249,115,22,0.35)}
+.btn.purple{background:linear-gradient(135deg,#7c3aed,#5b21b6);box-shadow:0 4px 16px rgba(124,58,237,0.35)}
+.success{background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(5,150,105,0.06));border:2px solid #10b981;border-radius:12px;padding:14px;margin-top:16px;font-size:13.5px;line-height:1.7;color:#6ee7b7}
+.success b{color:#a7f3d0}
 </style>
 </head>
 <body><div class="box">
 
-<h1>🎯 בדיקה ממוקדת</h1>
-<div class="sub">3 בדיקות נפרדות - כל אחת מוצאת את הבעיה מזווית אחרת</div>
+<h1>🎯 איפוס סיסמה — נסיון חדש</h1>
+<div class="sub">השדרוג ו-ההגנה נכבתה — עכשיו לנסות מ-0</div>
 
-<div class="info-box">
-💡 <b>הרעיון:</b> הכלי הקודם אמר ש-pinto1212121212 לא רשום, אבל ב-Console אתה רואה שהוא כן רשום. אחת משלוש הבדיקות פה תגלה מה באמת קורה.
+<div class="warn">
+<b>⚠️ עצור רגע:</b><br>
+הלינק שלחצת עליו — <b>הוא ישן מלפני השדרוג</b>. Firebase reset links חיים רק שעה, וכבר עבר הזמן.<br><br>
+<b>צריך לשלוח בקשה חדשה לגמרי</b>, ואז ללחוץ על הלינק החדש <b>תוך דקות</b>.
 </div>
 
-<button class="btn" onclick="test1()">1️⃣ createAuthUri (כמו הכלי הקודם)</button>
-<div class="result" id="r1">ממתין...</div>
-
-<button class="btn green" onclick="test2()">2️⃣ fetchSignInMethods (שיטה אחרת)</button>
-<div class="result" id="r2">ממתין...</div>
-
-<button class="btn purple" onclick="test3()">3️⃣ sendOobCode (ניסיון אמיתי לשליחת מייל)</button>
-<div class="result" id="r3">ממתין...</div>
-
+<div class="step">
+<div class="step-row"><span class="step-num">1</span><div class="step-ttl">מחק את המיילים הישנים</div></div>
+<div class="step-body">
+פתח Gmail → חפש: <code>from:noreply@diary-daniel-rinat.firebaseapp.com</code><br>
+<b>מחק</b> את כל המיילים הישנים. זה למנוע בלבול.
+</div>
 </div>
 
-<script>
-const KEY='AIzaSyCsh6qM-WgbWn1LHx2FTVio35ZPvMQ0aG4';
-const EMAIL='pinto1212121212@gmail.com';
+<div class="step">
+<div class="step-row"><span class="step-num">2</span><div class="step-ttl">פתח את האפליקציה</div></div>
+<div class="step-body">
+לחץ על אחד משני הלינקים — לפי מה שאתה רוצה לאפס:
+</div>
+<a class="btn orange" href="https://pinto1212121212-create.github.io/Mm.ll/" target="_blank" rel="noopener">💙 Mm.ll (רינת/דניאל)</a>
+<a class="btn purple" href="https://pinto1212121212-create.github.io/diary-hodaya/" target="_blank" rel="noopener">🎨 diary-hodaya (הודיה)</a>
+</div>
 
-function show(id,text,cls){
-  const el=document.getElementById(id);
-  el.textContent=text;
-  el.className='result '+(cls||'');
-}
+<div class="step">
+<div class="step-row"><span class="step-num">3</span><div class="step-ttl">לחץ "שכחתי סיסמה"</div></div>
+<div class="step-body">
+• הזן את ה-email שלך<br>
+• לחץ <b>"📧 שלח קישור"</b><br>
+• תראה הודעה ירוקה "נשלח!"
+</div>
+</div>
 
-async function test1(){
-  show('r1','⏳ בודק...');
-  try{
-    const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:createAuthUri?key='+KEY,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({identifier:EMAIL,continueUri:location.origin})
-    });
-    const d=await r.json();
-    let out='HTTP '+r.status+'\n';
-    out+='registered: '+(d.registered===true?'TRUE ✓':d.registered===false?'FALSE ✗':'(missing)')+'\n';
-    out+='allProviders: '+JSON.stringify(d.allProviders||[])+'\n';
-    out+='signinMethods: '+JSON.stringify(d.signinMethods||[])+'\n';
-    out+='\nfull response:\n'+JSON.stringify(d,null,2);
-    show('r1',out,d.registered===true?'pass':'fail');
-  }catch(e){
-    show('r1','ERROR: '+e.message,'fail');
-  }
-}
+<div class="step">
+<div class="step-row"><span class="step-num">4</span><div class="step-ttl">פתח Gmail — תוך דקה</div></div>
+<div class="step-body">
+<b>תוך 30-60 שניות</b> יגיע מייל חדש עם הכותרת:<br>
+<code>Reset your password for diary-daniel-rinat</code><br><br>
+אם לא רואה — בדוק <b>Spam folder</b>.
+</div>
+</div>
 
-async function test2(){
-  show('r2','⏳ בודק...');
-  // Newer endpoint - fetchSignInMethodsForEmail
-  try{
-    const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:createAuthUri?key='+KEY,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        identifier:EMAIL,
-        continueUri:'https://diary-daniel-rinat.firebaseapp.com/__/auth/handler'
-      })
-    });
-    const d=await r.json();
-    let out='HTTP '+r.status+'\n';
-    out+='With official continueUri:\n';
-    out+='registered: '+(d.registered===true?'TRUE ✓':d.registered===false?'FALSE ✗':'(missing)')+'\n';
-    out+='\n'+JSON.stringify(d,null,2);
-    show('r2',out,d.registered===true?'pass':'fail');
-  }catch(e){
-    show('r2','ERROR: '+e.message,'fail');
-  }
-}
+<div class="step">
+<div class="step-row"><span class="step-num">5</span><div class="step-ttl">לחץ על הלינק מהר!</div></div>
+<div class="step-body">
+<b>תלחץ על הלינק תוך שעה</b> — אחרי זה הוא פג תוקף.<br><br>
+<b>חשוב:</b> אם Gmail שואל "Open in" — בחר <b>Chrome</b>, לא את אפליקציית Gmail עצמה.
+</div>
+</div>
 
-async function test3(){
-  show('r3','⏳ שולח בקשת איפוס...');
-  try{
-    const t0=Date.now();
-    const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key='+KEY,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        requestType:'PASSWORD_RESET',
-        email:EMAIL,
-        continueUrl:'https://pinto1212121212-create.github.io/Mm.ll/'
-      })
-    });
-    const elapsed=Date.now()-t0;
-    const d=await r.json();
-    let out='HTTP '+r.status+' ('+elapsed+'ms)\n\n';
-    if(r.ok){
-      out+='✅ Firebase accepted the request!\n';
-      out+='Response: '+JSON.stringify(d,null,2)+'\n\n';
-      out+='⚠️ IMPORTANT: Firebase returns 200 OK even if email doesn\'t exist (for security).\n';
-      out+='So this PASS doesn\'t prove the user exists.\n\n';
-      out+='If you don\'t receive an email in 2 minutes → user doesn\'t exist here.\n';
-      out+='If email arrives → flow works, old link was just expired.';
-      show('r3',out,'pass');
-    }else{
-      out+='❌ FAILED\n';
-      out+='Error: '+JSON.stringify(d,null,2);
-      const msg=((d.error||{}).message||'').toUpperCase();
-      if(msg.includes('EMAIL_NOT_FOUND'))out+='\n\n🎯 GOTCHA! EMAIL_NOT_FOUND - the user is NOT in this Firebase project.';
-      else if(msg.includes('QUOTA'))out+='\n\n🎯 GOTCHA! Quota exceeded - Firebase blocked too many reset requests.';
-      else if(msg.includes('TOO_MANY'))out+='\n\n🎯 GOTCHA! Rate limited by Firebase for too many attempts.';
-      show('r3',out,'fail');
-    }
-  }catch(e){
-    show('r3','ERROR: '+e.message,'fail');
-  }
-}
-</script>
-</body>
-</html>
+<div class="step">
+<div class="step-row"><span class="step-num">6</span><div class="step-ttl">הגדר סיסמה חדשה</div></div>
+<div class="step-body">
+תראה את המסך של היומן עם "סיסמה חדשה":<br>
+• הזן סיסמה (לפחות 8 תווים, אותיות+מספרים)<br>
+• אמת את הסיסמה<br>
+• לחץ <b>"💾 שמור סיסמה חדשה"</b>
+</div>
+</div>
+
+<div class="success">
+<b>✅ מה אמור לקרות:</b><br>
+אחרי 6 השלבים — הודעה ירוקה "הסיסמה שונתה!" ואז תועבר אוטומטית למסך כניסה. זהו — איפוס בוצע.<br><br>
+<b>אם זה עדיין לא עובד</b> — צלם את המסך שאתה רואה ושלח לי. יכול להיות רמז שפספסתי.
+</div>
+
+</div></body></html>
