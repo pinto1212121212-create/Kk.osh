@@ -3,403 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🔬 Firebase Diagnostic - בדיקה מקיפה</title>
+<title>🎯 בדיקה ממוקדת</title>
 <style>
 *{box-sizing:border-box}
-body{background:linear-gradient(180deg,#0a0805,#1a0f05);color:#fff;font-family:-apple-system,sans-serif;margin:0;padding:16px;min-height:100vh;direction:rtl}
-.box{max-width:560px;margin:0 auto}
-h1{color:#fbab20;font-size:22px;margin:0 0 4px;text-align:center}
-.sub{color:rgba(255,255,255,0.55);font-size:12px;margin-bottom:16px;text-align:center}
-
-.field{margin-bottom:10px}
-.field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px;color:#fcd34d}
-.field input{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:#fff;padding:11px;font-size:14px;font-family:inherit}
-
-.btn{display:block;width:100%;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;border:none;padding:15px;border-radius:12px;font-size:15px;font-weight:800;margin:10px 0;box-shadow:0 4px 16px rgba(249,115,22,0.35);font-family:inherit;cursor:pointer}
+body{background:linear-gradient(180deg,#0a0805,#1a0f05);color:#fff;font-family:-apple-system,sans-serif;margin:0;padding:18px;direction:rtl;min-height:100vh}
+.box{max-width:500px;margin:0 auto}
+h1{color:#fbab20;font-size:22px;margin:0 0 6px;text-align:center}
+.sub{color:rgba(255,255,255,0.6);font-size:13px;margin-bottom:16px;text-align:center}
+.btn{display:block;width:100%;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;border:none;padding:16px;border-radius:12px;font-size:15px;font-weight:800;margin:10px 0;box-shadow:0 4px 16px rgba(249,115,22,0.35);font-family:inherit;cursor:pointer}
 .btn:disabled{opacity:0.5}
-.btn.primary{background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 4px 16px rgba(16,185,129,0.35)}
-.btn.copy{background:linear-gradient(135deg,#7c3aed,#5b21b6);box-shadow:0 4px 16px rgba(124,58,237,0.35)}
-
-.warn{background:rgba(251,171,32,0.08);border:1px solid rgba(251,171,32,0.3);border-radius:10px;padding:10px;margin-bottom:12px;font-size:12px;color:#fcd34d;line-height:1.5}
-
-.test-group{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px;margin-bottom:8px}
-.test-group-ttl{font-size:13px;font-weight:800;color:#c4b5fd;margin-bottom:6px}
-.test{display:flex;gap:8px;align-items:flex-start;padding:6px 0;font-size:12.5px;line-height:1.45;border-top:1px solid rgba(255,255,255,0.04)}
-.test:first-child{border-top:none}
-.test-ico{flex-shrink:0;width:20px;text-align:center}
-.test-body{flex:1;min-width:0;word-break:break-word}
-.test-name{font-weight:700;color:rgba(255,255,255,0.9)}
-.test-detail{color:rgba(255,255,255,0.55);font-size:11.5px;margin-top:2px;font-family:monospace}
-.test.pass .test-ico{color:#10b981}
-.test.fail .test-ico{color:#ef4444}
-.test.warn .test-ico{color:#f59e0b}
-.test.info .test-ico{color:#60a5fa}
-.test.pending .test-ico{color:rgba(255,255,255,0.4)}
-
-.summary{margin-top:16px;padding:14px;border-radius:12px;font-size:13px;line-height:1.6}
-.summary.all-pass{background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(5,150,105,0.08));border:2px solid #10b981;color:#6ee7b7}
-.summary.has-issues{background:linear-gradient(135deg,rgba(239,68,68,0.15),rgba(153,27,27,0.08));border:2px solid #ef4444;color:#fca5a5}
-.summary-ttl{font-size:15px;font-weight:800;margin-bottom:6px}
-
-textarea{width:100%;min-height:260px;background:rgba(0,0,0,0.4);border:1px solid rgba(124,58,237,0.4);border-radius:10px;color:#ddd6fe;padding:12px;font-size:11px;font-family:monospace;margin-top:10px;direction:ltr}
-
-.err-box{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.35);border-radius:10px;padding:10px;margin-top:10px;font-size:12px;color:#fca5a5;line-height:1.5}
+.btn.green{background:linear-gradient(135deg,#10b981,#059669)}
+.btn.purple{background:linear-gradient(135deg,#7c3aed,#5b21b6)}
+.result{background:rgba(0,0,0,0.4);border:1px solid rgba(124,58,237,0.3);border-radius:10px;padding:14px;margin-top:14px;font-size:12px;font-family:monospace;white-space:pre-wrap;word-break:break-all;direction:ltr;text-align:left;min-height:60px;color:#ddd6fe}
+.result.pass{border-color:#10b981;background:rgba(16,185,129,0.08);color:#6ee7b7}
+.result.fail{border-color:#ef4444;background:rgba(239,68,68,0.08);color:#fca5a5}
+.info-box{background:rgba(251,171,32,0.08);border:1px solid rgba(251,171,32,0.3);border-radius:10px;padding:12px;margin-bottom:14px;font-size:12.5px;color:#fcd34d;line-height:1.6}
 </style>
 </head>
 <body><div class="box">
 
-<h1>🔬 Firebase Diagnostic Tool</h1>
-<div class="sub">בדיקה מקיפה של כל הקשור ל-Authentication + Reset Email Flow</div>
+<h1>🎯 בדיקה ממוקדת</h1>
+<div class="sub">3 בדיקות נפרדות - כל אחת מוצאת את הבעיה מזווית אחרת</div>
 
-<div class="warn">
-⚠️ הכלי מבצע בדיקות אמיתיות מול Firebase - יכול לשלוח 2-3 מיילי test. אם אתה רוצה שהבדיקה תכלול ניסיון שליחת מייל איפוס, סמן את הצ׳קבוקס למטה.
+<div class="info-box">
+💡 <b>הרעיון:</b> הכלי הקודם אמר ש-pinto1212121212 לא רשום, אבל ב-Console אתה רואה שהוא כן רשום. אחת משלוש הבדיקות פה תגלה מה באמת קורה.
 </div>
 
-<div class="field">
-  <label>📧 Email לבדוק (של אחד המשתמשים)</label>
-  <input type="email" id="em" placeholder="pinto1212121212@gmail.com" autocomplete="email">
-</div>
+<button class="btn" onclick="test1()">1️⃣ createAuthUri (כמו הכלי הקודם)</button>
+<div class="result" id="r1">ממתין...</div>
 
-<div class="field">
-  <label>🔑 סיסמה (לא חובה - אם יש, נבדוק גם signin)</label>
-  <input type="password" id="pw" placeholder="(אופציונלי)" autocomplete="current-password">
-</div>
+<button class="btn green" onclick="test2()">2️⃣ fetchSignInMethods (שיטה אחרת)</button>
+<div class="result" id="r2">ממתין...</div>
 
-<label style="display:flex;gap:8px;align-items:center;padding:10px;background:rgba(255,255,255,0.04);border-radius:8px;margin-bottom:10px;font-size:12px;cursor:pointer">
-  <input type="checkbox" id="send-reset" style="width:18px;height:18px">
-  <span>בצע ניסיון שליחת מייל איפוס בפועל (מייצר רשומה ב-Firebase)</span>
-</label>
-
-<button class="btn primary" id="run" onclick="runDiagnostic()">🚀 התחל בדיקה מקיפה</button>
-
-<div id="results"></div>
+<button class="btn purple" onclick="test3()">3️⃣ sendOobCode (ניסיון אמיתי לשליחת מייל)</button>
+<div class="result" id="r3">ממתין...</div>
 
 </div>
 
 <script>
-const FB_API_KEY='AIzaSyCsh6qM-WgbWn1LHx2FTVio35ZPvMQ0aG4';
-const FB_BASE='https://diary-daniel-rinat-default-rtdb.firebaseio.com';
-const REPORT=[];
+const KEY='AIzaSyCsh6qM-WgbWn1LHx2FTVio35ZPvMQ0aG4';
+const EMAIL='pinto1212121212@gmail.com';
 
-function T(group,name,status,detail){
-  REPORT.push({group,name,status,detail});
+function show(id,text,cls){
+  const el=document.getElementById(id);
+  el.textContent=text;
+  el.className='result '+(cls||'');
 }
 
-function renderResults(){
-  const grouped={};
-  REPORT.forEach(t=>{
-    if(!grouped[t.group])grouped[t.group]=[];
-    grouped[t.group].push(t);
-  });
-  let html='';
-  Object.keys(grouped).forEach(g=>{
-    html+='<div class="test-group"><div class="test-group-ttl">'+g+'</div>';
-    grouped[g].forEach(t=>{
-      const icoMap={pass:'✓',fail:'✗',warn:'⚠',info:'ℹ',pending:'⋯'};
-      html+='<div class="test '+t.status+'"><div class="test-ico">'+(icoMap[t.status]||'?')+'</div>';
-      html+='<div class="test-body"><div class="test-name">'+t.name+'</div>';
-      if(t.detail)html+='<div class="test-detail">'+t.detail.replace(/</g,'&lt;')+'</div>';
-      html+='</div></div>';
-    });
-    html+='</div>';
-  });
-  
-  // Summary
-  const fails=REPORT.filter(t=>t.status==='fail').length;
-  const warns=REPORT.filter(t=>t.status==='warn').length;
-  if(fails===0&&warns===0){
-    html+='<div class="summary all-pass"><div class="summary-ttl">✅ הכל תקין</div>לא זוהו בעיות בתצורת Firebase. אם איפוס סיסמה עדיין לא עובד - הבעיה היא בצד הלקוח (Gmail scan / דפדפן / רשת).</div>';
-  }else{
-    html+='<div class="summary has-issues"><div class="summary-ttl">⚠️ זוהו '+fails+' שגיאות, '+warns+' אזהרות</div>העתק את הדוח המלא מלמטה ושלח לי - אזהה את הבעיה המדויקת ואתן פתרון.</div>';
-  }
-  
-  // Copyable report
-  let report='=== FIREBASE DIAGNOSTIC REPORT ===\n';
-  report+='Generated: '+new Date().toISOString()+'\n';
-  report+='Email tested: '+(document.getElementById('em').value||'(none)')+'\n\n';
-  Object.keys(grouped).forEach(g=>{
-    report+='\n['+g+']\n';
-    grouped[g].forEach(t=>{
-      const sym={pass:'PASS',fail:'FAIL',warn:'WARN',info:'INFO',pending:'...'};
-      report+='  ['+sym[t.status]+'] '+t.name;
-      if(t.detail)report+=' — '+t.detail;
-      report+='\n';
-    });
-  });
-  report+='\n=== END REPORT ===';
-  
-  html+='<div style="margin-top:14px"><div style="font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:6px">📋 העתק את הדוח המלא ושלח לי:</div>';
-  html+='<textarea id="report-text" readonly onclick="this.select()">'+report.replace(/</g,'&lt;')+'</textarea>';
-  html+='<button class="btn copy" onclick="copyReport()">📋 העתק לדוח</button></div>';
-  
-  document.getElementById('results').innerHTML=html;
-}
-
-function copyReport(){
-  const ta=document.getElementById('report-text');
-  ta.select();
+async function test1(){
+  show('r1','⏳ בודק...');
   try{
-    navigator.clipboard.writeText(ta.value).then(()=>{
-      alert('✅ הדוח הועתק! הדבק אותו בשיחה עם Claude');
-    }).catch(()=>{
-      document.execCommand('copy');
-      alert('✅ הועתק');
+    const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:createAuthUri?key='+KEY,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({identifier:EMAIL,continueUri:location.origin})
     });
+    const d=await r.json();
+    let out='HTTP '+r.status+'\n';
+    out+='registered: '+(d.registered===true?'TRUE ✓':d.registered===false?'FALSE ✗':'(missing)')+'\n';
+    out+='allProviders: '+JSON.stringify(d.allProviders||[])+'\n';
+    out+='signinMethods: '+JSON.stringify(d.signinMethods||[])+'\n';
+    out+='\nfull response:\n'+JSON.stringify(d,null,2);
+    show('r1',out,d.registered===true?'pass':'fail');
   }catch(e){
-    document.execCommand('copy');
-    alert('✅ הועתק');
+    show('r1','ERROR: '+e.message,'fail');
   }
 }
 
-async function runDiagnostic(){
-  const email=document.getElementById('em').value.trim();
-  const password=document.getElementById('pw').value;
-  const sendReset=document.getElementById('send-reset').checked;
-  
-  if(!email){alert('הכנס email');return;}
-  
-  REPORT.length=0;
-  document.getElementById('run').disabled=true;
-  document.getElementById('run').textContent='⏳ בודק... (30-60 שניות)';
-  document.getElementById('results').innerHTML='<div style="text-align:center;padding:20px;color:rgba(255,255,255,0.6)">⏳ מריץ בדיקות...</div>';
-  
-  // ──────────────────────────────────────────────────
-  // GROUP 1: Network / connectivity basics
-  // ──────────────────────────────────────────────────
+async function test2(){
+  show('r2','⏳ בודק...');
+  // Newer endpoint - fetchSignInMethodsForEmail
   try{
-    const r=await fetch('https://www.google.com/generate_204',{mode:'no-cors'});
-    T('🌐 רשת','חיבור אינטרנט','pass','תקין');
-  }catch(e){
-    T('🌐 רשת','חיבור אינטרנט','fail','אין חיבור');
-  }
-  
-  // Firebase identity toolkit reachability
-  try{
-    const r=await fetch('https://identitytoolkit.googleapis.com/v1/projects?key='+FB_API_KEY);
-    T('🌐 רשת','Firebase Auth זמין',r.status<500?'pass':'fail','HTTP '+r.status);
-  }catch(e){
-    T('🌐 רשת','Firebase Auth זמין','fail','network error');
-  }
-  
-  // Firebase action handler reachability
-  try{
-    const r=await fetch('https://diary-daniel-rinat.firebaseapp.com/__/auth/handler',{method:'HEAD',mode:'no-cors'});
-    T('🌐 רשת','Firebase Action Handler זמין','pass','firebaseapp.com מגיב');
-  }catch(e){
-    T('🌐 רשת','Firebase Action Handler זמין','warn','לא ניתן לבדוק בגלל CORS (זה לא בהכרח שגיאה)');
-  }
-  
-  // Firebase Realtime DB
-  try{
-    const r=await fetch(FB_BASE+'/.json?shallow=true');
-    if(r.status===401)T('🌐 רשת','Realtime Database זמין','pass','401 (protected - תקין)');
-    else if(r.ok)T('🌐 רשת','Realtime Database זמין','pass','HTTP '+r.status);
-    else T('🌐 רשת','Realtime Database זמין','warn','HTTP '+r.status);
-  }catch(e){
-    T('🌐 רשת','Realtime Database זמין','fail','network error');
-  }
-  
-  renderResults();
-  
-  // ──────────────────────────────────────────────────
-  // GROUP 2: Email existence / user state
-  // ──────────────────────────────────────────────────
-  let userExists=false;
-  let userToken=null;
-  let userUid=null;
-  
-  // Use fetchSignInMethodsForEmail to check existence without password
-  try{
-    const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:createAuthUri?key='+FB_API_KEY,{
+    const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:createAuthUri?key='+KEY,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        identifier:email,
-        continueUri:location.origin
+        identifier:EMAIL,
+        continueUri:'https://diary-daniel-rinat.firebaseapp.com/__/auth/handler'
       })
     });
-    if(r.ok){
-      const d=await r.json();
-      userExists=!!d.registered;
-      T('👤 משתמש','Email רשום ב-Firebase',userExists?'pass':'fail',userExists?'כן ('+email+')':'לא רשום');
-      if(d.allProviders&&d.allProviders.length){
-        T('👤 משתמש','שיטות כניסה','info',d.allProviders.join(', '));
-      }
-    }else{
-      const err=await r.json();
-      T('👤 משתמש','Email רשום ב-Firebase','warn','לא ניתן לבדוק: '+((err.error||{}).message||'unknown'));
-    }
+    const d=await r.json();
+    let out='HTTP '+r.status+'\n';
+    out+='With official continueUri:\n';
+    out+='registered: '+(d.registered===true?'TRUE ✓':d.registered===false?'FALSE ✗':'(missing)')+'\n';
+    out+='\n'+JSON.stringify(d,null,2);
+    show('r2',out,d.registered===true?'pass':'fail');
   }catch(e){
-    T('👤 משתמש','Email רשום ב-Firebase','fail','exception: '+e.message);
+    show('r2','ERROR: '+e.message,'fail');
   }
-  
-  renderResults();
-  
-  // Try sign-in if password provided
-  if(password&&userExists){
-    try{
-      const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+FB_API_KEY,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({email,password,returnSecureToken:true})
-      });
-      if(r.ok){
-        const d=await r.json();
-        userToken=d.idToken;
-        userUid=d.localId;
-        T('👤 משתמש','סיסמה תקפה','pass','signin הצליח');
-        T('👤 משתמש','UID',''+'info',d.localId);
-        T('👤 משתמש','Email Verified','info',(d.emailVerified?'כן':'לא'));
-      }else{
-        const err=await r.json();
-        const msg=((err.error||{}).message||'').toUpperCase();
-        T('👤 משתמש','סיסמה תקפה','fail',msg);
-      }
-    }catch(e){
-      T('👤 משתמש','סיסמה תקפה','fail',e.message);
-    }
-  }else if(password&&!userExists){
-    T('👤 משתמש','סיסמה תקפה','warn','דילוג - user לא רשום');
-  }
-  
-  renderResults();
-  
-  // ──────────────────────────────────────────────────
-  // GROUP 3: Check both app paths in RTDB
-  // ──────────────────────────────────────────────────
-  if(userToken){
-    try{
-      const [r1,r2]=await Promise.all([
-        fetch(FB_BASE+'/diary/users/'+userUid+'.json?auth='+encodeURIComponent(userToken)),
-        fetch(FB_BASE+'/therapy_hodaya/users/'+userUid+'.json?auth='+encodeURIComponent(userToken))
-      ]);
-      const [d1,d2]=await Promise.all([r1.json(),r2.json()]);
-      const inDiary=!!(d1&&(d1.name||d1.email||d1.createdAt));
-      const inHodaya=!!(d2&&(d2.name||d2.email||d2.createdAt));
-      T('👤 משתמש','רשום ב-/diary (רינת/דניאל)',inDiary?'pass':'info',inDiary?(d1.name||d1.email||'רשום'):'לא רשום שם');
-      T('👤 משתמש','רשום ב-/therapy_hodaya (הודיה)',inHodaya?'pass':'info',inHodaya?(d2.name||d2.email||'רשום'):'לא רשום שם');
-      if(inDiary&&inHodaya){
-        T('⚠️ כפילות','אותו user רשום בשתי האפליקציות','warn','זה יוצר בלבול במיילי איפוס');
-      }
-    }catch(e){
-      T('👤 משתמש','בדיקת נתיבי אפליקציה','warn',e.message);
-    }
-  }
-  
-  // ──────────────────────────────────────────────────
-  // GROUP 4: Check for recent reset requests in audit logs
-  // ──────────────────────────────────────────────────
-  if(userToken){
-    try{
-      const r=await fetch(FB_BASE+'/diary/audit_log.json?auth='+encodeURIComponent(userToken)+'&orderBy=%22at%22&limitToLast=20');
-      if(r.ok){
-        const d=await r.json()||{};
-        const entries=Object.values(d).filter(e=>e.uid===userUid||e.email===email);
-        T('📜 Audit','כניסות אחרונות ב-/diary','info',entries.length+' רשומות נמצאו');
-        const now=Date.now();
-        const recent24h=entries.filter(e=>{
-          try{return (now-new Date(e.at).getTime())<86400000;}catch(_){return false;}
-        });
-        if(recent24h.length)T('📜 Audit','פעילות ב-24 שעות אחרונות','info',recent24h.length+' אירועים');
-      }
-    }catch(e){/*silent*/}
-    
-    try{
-      const r=await fetch(FB_BASE+'/therapy_hodaya/audit_log.json?auth='+encodeURIComponent(userToken)+'&orderBy=%22at%22&limitToLast=20');
-      if(r.ok){
-        const d=await r.json()||{};
-        const entries=Object.values(d).filter(e=>e.uid===userUid||e.email===email);
-        T('📜 Audit','כניסות אחרונות ב-/therapy_hodaya','info',entries.length+' רשומות');
-      }
-    }catch(e){/*silent*/}
-  }
-  
-  renderResults();
-  
-  // ──────────────────────────────────────────────────
-  // GROUP 5: Domain authorization check
-  // ──────────────────────────────────────────────────
-  T('🔒 Domains','ה-URL הנוכחי','info',location.origin+location.pathname);
-  
-  const domainsToCheck=[
-    'pinto1212121212-create.github.io',
-    'diary-daniel-rinat.firebaseapp.com',
-    'diary-daniel-rinat.web.app'
-  ];
-  T('🔒 Domains','Authorized Domains צפויים','info',domainsToCheck.join(', '));
-  T('🔒 Domains','Action URL default','info','https://diary-daniel-rinat.firebaseapp.com/__/auth/action');
-  
-  // ──────────────────────────────────────────────────
-  // GROUP 6: Optional - send actual reset email
-  // ──────────────────────────────────────────────────
-  if(sendReset&&userExists){
-    const continueUrl=prompt('הכנס continueUrl לשליחת מייל בדיקה:\n\nלהודיה: https://pinto1212121212-create.github.io/diary-hodaya/\nלרינת/דניאל: https://pinto1212121212-create.github.io/Mm.ll/','https://pinto1212121212-create.github.io/Mm.ll/');
-    if(continueUrl){
-      try{
-        const t0=Date.now();
-        const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key='+FB_API_KEY,{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({
-            requestType:'PASSWORD_RESET',
-            email,
-            continueUrl
-          })
-        });
-        const elapsed=Date.now()-t0;
-        if(r.ok){
-          const d=await r.json();
-          T('📧 שליחת איפוס','בקשה הצליחה','pass','API response: HTTP 200 ('+elapsed+'ms), email field: '+(d.email||'(not returned)'));
-          T('📧 שליחת איפוס','זמן משוער להגעה','info','בד״כ 15-60 שניות. בדוק Gmail + spam + כל התיבה');
-          T('📧 שליחת איפוס','חיפוש ב-Gmail','info','from:noreply@diary-daniel-rinat.firebaseapp.com');
-        }else{
-          const err=await r.json();
-          const msg=((err.error||{}).message||'');
-          T('📧 שליחת איפוס','בקשה נכשלה','fail','HTTP '+r.status+': '+msg);
-          if(msg.includes('QUOTA'))T('📧 שליחת איפוס','אזהרת QUOTA','fail','הפרויקט עבר מכסת מיילים! Firebase חוסם שליחות.');
-          if(msg.includes('EMAIL_NOT_FOUND'))T('📧 שליחת איפוס','Email לא קיים','fail','ה-email לא רשום ב-Firebase.');
-        }
-      }catch(e){
-        T('📧 שליחת איפוס','שליחה נכשלה','fail',e.message);
-      }
-    }
-  }
-  
-  // ──────────────────────────────────────────────────
-  // GROUP 7: Browser / environment info
-  // ──────────────────────────────────────────────────
-  T('🌐 Browser','User Agent','info',navigator.userAgent.substring(0,80));
-  T('🌐 Browser','שפה','info',navigator.language);
-  T('🌐 Browser','Online Status','info',navigator.onLine?'online':'OFFLINE!');
-  T('🌐 Browser','localStorage available','info',typeof localStorage!=='undefined'?'yes':'NO');
-  T('🌐 Browser','crypto.subtle available','info',typeof crypto!=='undefined'&&crypto.subtle?'yes':'NO');
-  
-  // Time sync check (critical for JWT validation)
+}
+
+async function test3(){
+  show('r3','⏳ שולח בקשת איפוס...');
   try{
     const t0=Date.now();
-    const r=await fetch('https://identitytoolkit.googleapis.com/v1/projects?key='+FB_API_KEY);
-    const serverDate=r.headers.get('date');
-    if(serverDate){
-      const serverMs=new Date(serverDate).getTime();
-      const localMs=Date.now();
-      const drift=Math.abs(serverMs-localMs);
-      T('🌐 Browser','שעון מכשיר vs שרת','info','drift = '+Math.round(drift/1000)+' שניות');
-      if(drift>60000)T('🌐 Browser','⚠️ שעון לא מסונכרן',drift>300000?'fail':'warn','שעון המכשיר רחוק '+Math.round(drift/60000)+' דקות מהשרת. זה שובר oobCodes!');
+    const r=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key='+KEY,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        requestType:'PASSWORD_RESET',
+        email:EMAIL,
+        continueUrl:'https://pinto1212121212-create.github.io/Mm.ll/'
+      })
+    });
+    const elapsed=Date.now()-t0;
+    const d=await r.json();
+    let out='HTTP '+r.status+' ('+elapsed+'ms)\n\n';
+    if(r.ok){
+      out+='✅ Firebase accepted the request!\n';
+      out+='Response: '+JSON.stringify(d,null,2)+'\n\n';
+      out+='⚠️ IMPORTANT: Firebase returns 200 OK even if email doesn\'t exist (for security).\n';
+      out+='So this PASS doesn\'t prove the user exists.\n\n';
+      out+='If you don\'t receive an email in 2 minutes → user doesn\'t exist here.\n';
+      out+='If email arrives → flow works, old link was just expired.';
+      show('r3',out,'pass');
+    }else{
+      out+='❌ FAILED\n';
+      out+='Error: '+JSON.stringify(d,null,2);
+      const msg=((d.error||{}).message||'').toUpperCase();
+      if(msg.includes('EMAIL_NOT_FOUND'))out+='\n\n🎯 GOTCHA! EMAIL_NOT_FOUND - the user is NOT in this Firebase project.';
+      else if(msg.includes('QUOTA'))out+='\n\n🎯 GOTCHA! Quota exceeded - Firebase blocked too many reset requests.';
+      else if(msg.includes('TOO_MANY'))out+='\n\n🎯 GOTCHA! Rate limited by Firebase for too many attempts.';
+      show('r3',out,'fail');
     }
-  }catch(e){/*silent*/}
-  
-  // ──────────────────────────────────────────────────
-  // DONE
-  // ──────────────────────────────────────────────────
-  renderResults();
-  
-  document.getElementById('run').disabled=false;
-  document.getElementById('run').textContent='🔄 הרץ שוב';
-  
-  // Scroll to results
-  setTimeout(()=>{
-    document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
-  },100);
+  }catch(e){
+    show('r3','ERROR: '+e.message,'fail');
+  }
 }
 </script>
 </body>
